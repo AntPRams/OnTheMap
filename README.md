@@ -30,6 +30,7 @@ The code also has a `MainViewController` with all the properties, buttons and me
 ### Prerequisites
 
 Mac OS X 10.14
+
 xCode 10.xx
 
 
