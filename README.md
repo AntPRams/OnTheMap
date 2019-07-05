@@ -1,6 +1,7 @@
 # OnTheMap
 
-A app to share your location with your classmates that study at Udacity
+A project required by Udacity that serves the purpose of sharing our location with other students and having access to theirs.
+The project was approved for the 4th module of the course.
 
 
 ## Getting Started
