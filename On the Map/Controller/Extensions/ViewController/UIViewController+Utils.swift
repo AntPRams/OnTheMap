@@ -29,6 +29,31 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func alertIfUserIsPuttingLocation() {
+        
+        let alert = UIAlertController(
+            title: "Caution",
+            message: "You are about to overwrite your location, do you want to proceed?",
+            preferredStyle: .alert)
+        
+        let alertActionCancel = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
+        
+        let alertActionConfirm = UIAlertAction(
+            title: "Ok",
+            style: .default
+        ) { (UIAlertAction) in
+            guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationController") else {return}
+            self.present(controller, animated: true, completion: nil)
+        }
+        
+        alert.addAction(alertActionConfirm)
+        alert.addAction(alertActionCancel)
+        present(alert, animated: true, completion: nil)
+    }
     
     //Handle error description when the localized description is not enough
     func handleErrorAlert(error: Error?){

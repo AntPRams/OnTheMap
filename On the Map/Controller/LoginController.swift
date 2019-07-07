@@ -19,6 +19,8 @@ class LoginController: MainViewController {
     @IBOutlet weak var loginButton: CustomOrangeButton!
     @IBOutlet weak var signUpButton: CustomOrangeButton!
     
+    @IBOutlet weak var mainStackView: UIStackView!
+    
     //MARK: View life cycle
     
     override func viewDidLoad() {
@@ -31,8 +33,21 @@ class LoginController: MainViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillChange(_:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+        
         passwordTextField.text = ""
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: Buttons
@@ -55,6 +70,28 @@ class LoginController: MainViewController {
     }
     
     //MARK: Methods
+    
+    @objc func keyboardWillChange(_ notification: Notification) {
+        
+        let verticalSpacing: CGFloat = 5
+        guard let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+            else { return }
+        
+        // Get the keyboard frame from the user info
+        
+        let keyboardMinY = keyboardFrame.minY
+        if keyboardMinY == UIScreen.main.bounds.maxY {
+            view.frame.origin.y = 0
+            return
+        }
+        
+        let mainStackViewMaxYOnScreen = mainStackView.frame.maxY + view.frame.origin.y
+        if keyboardMinY < mainStackViewMaxYOnScreen {
+            view.frame.origin.y -= mainStackViewMaxYOnScreen - keyboardMinY + verticalSpacing
+        }
+        
+    }
     
     func handleLoginResponse(success: Bool, error: Error?){
             if success {

@@ -21,6 +21,8 @@ class AddLocationController: MainViewController {
     @IBOutlet weak var uiViewForMap: UIView!
     @IBOutlet weak var whereAreYouLabel: UILabel!
     
+    @IBOutlet weak var mainStackView: UIStackView!
+    
     lazy var geocoder = CLGeocoder()
     
     //MARK: View life cycle
@@ -34,6 +36,22 @@ class AddLocationController: MainViewController {
         initTextField(textField)
         uiViewForMap.isHidden = false
         mapView(isActive: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillChange(_:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: Buttons
@@ -89,6 +107,30 @@ class AddLocationController: MainViewController {
             urlCheck = "https://\(check)"
             return urlCheck
         }
+    }
+    
+    //MARK: Methods
+    
+    @objc func keyboardWillChange(_ notification: Notification) {
+        
+        let verticalSpacing: CGFloat = 5
+        guard let userInfo = notification.userInfo,
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+            else { return }
+
+        // Get the keyboard frame from the user info
+
+        let keyboardMinY = keyboardFrame.minY
+        if keyboardMinY == UIScreen.main.bounds.maxY {
+            view.frame.origin.y = 0
+            return
+        }
+
+        let mainStackViewMaxYOnScreen = mainStackView.frame.maxY + view.frame.origin.y
+        if keyboardMinY < mainStackViewMaxYOnScreen {
+            view.frame.origin.y -= mainStackViewMaxYOnScreen - keyboardMinY + verticalSpacing
+        }
+        
     }
     
     func setBehaviourForShareLocation() {

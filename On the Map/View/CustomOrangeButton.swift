@@ -16,8 +16,5 @@ class CustomOrangeButton: UIButton {
         layer.cornerRadius = 8
         tintColor = UIColor.white
         backgroundColor = .primaryOrange
-        
-        
     }
-
 }

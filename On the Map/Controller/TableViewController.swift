@@ -28,6 +28,7 @@ class TableViewController: MainViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         populateTable()
         setAddLocationButtonImage(addLocationButton)
         

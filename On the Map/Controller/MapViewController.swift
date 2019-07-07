@@ -32,10 +32,14 @@ class MapViewController: MainViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setAddLocationButtonImage(addLocationButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         setMapInMyLocation()
     }
     

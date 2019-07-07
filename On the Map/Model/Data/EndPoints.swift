@@ -14,7 +14,7 @@ enum EndPoints {
     static let studentLocationParam = "/StudentLocation"
     static let postASessionParam =    "/session"
     static let getUserIdParam =       "/users/"
-    static let sortedParam =          "?order=-updatedAt"
+    static let sortedParam =          "?order=-updatedAt&limit=100"
     static let udacitySignupParam =   "https://auth.udacity.com/sign-up"
 
     case getStudentLocations

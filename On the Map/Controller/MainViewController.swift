@@ -32,6 +32,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         setActivityIndicator(animated: false)
     }
     
@@ -47,9 +48,10 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func addLocationButton(_ sender: Any) {
+        
         if Credentials.objectId == nil {
-        guard let controller = storyboard?.instantiateViewController(withIdentifier: "AddLocationController") else {return}
-        present(controller, animated: true, completion: nil)
+            guard let controller = storyboard?.instantiateViewController(withIdentifier: "AddLocationController") else {return}
+            present(controller, animated: true, completion: nil)
         } else {
             alertIfUserIsPuttingLocation()
         }
@@ -78,32 +80,6 @@ class MainViewController: UIViewController {
             value: color,
             range: NSRange(location: location,length: lenght)
         )
-    }
-    
-    func alertIfUserIsPuttingLocation() {
-        
-        let alert = UIAlertController(
-            title: "Caution",
-            message: "You are about to overwrite your location, do you want to proceed?",
-            preferredStyle: .alert)
-        
-        let alertActionCancel = UIAlertAction(
-            title: "Cancel",
-            style: .cancel,
-            handler: nil
-        )
-        
-        let alertActionConfirm = UIAlertAction(
-        title: "Ok",
-        style: .default
-        ) { (UIAlertAction) in
-            guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddLocationController") else {return}
-            self.present(controller, animated: true, completion: nil)
-        }
-        
-        alert.addAction(alertActionConfirm)
-        alert.addAction(alertActionCancel)
-        present(alert, animated: true, completion: nil)
     }
     
     @objc func presentAddLocationController() {

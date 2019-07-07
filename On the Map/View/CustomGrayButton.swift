@@ -16,6 +16,5 @@ class CustomGrayButton: UIButton {
         layer.cornerRadius = 8
         tintColor = UIColor.white
         backgroundColor = .primaryGray
-      
     }
 }
