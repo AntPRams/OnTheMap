@@ -25,6 +25,8 @@ class AddLocationController: MainViewController {
     
     lazy var geocoder = CLGeocoder()
     
+    let mapController = MapViewController()
+    
     //MARK: View life cycle
     
     override func viewDidLoad() {
@@ -76,7 +78,7 @@ class AddLocationController: MainViewController {
         case "Submit":
             if textField.text != "" {
                 setActivityIndicator(animated: true)
-                setBehaviourForShareLocation()
+                setUserDetailsIfNil()
                 DummyInfo.mediaUrl = checkUrl(check: placeOnMapOrURL)
             } else {
                 showAlert(error: "You must provide a valid URL")
@@ -86,9 +88,7 @@ class AddLocationController: MainViewController {
             return
         }
     }
-    
-    
-    
+ 
     @IBAction func dismissButton(_ sender: Any) {
         
         dismiss(animated: true, completion: nil)
@@ -100,9 +100,8 @@ class AddLocationController: MainViewController {
         
         var urlCheck = check
         
-        if urlCheck.hasPrefix("https://") {
+        if urlCheck.hasPrefix("https://") || urlCheck.hasPrefix("http://"){
             return urlCheck
-            
         } else {
             urlCheck = "https://\(check)"
             return urlCheck
@@ -133,7 +132,7 @@ class AddLocationController: MainViewController {
         
     }
     
-    func setBehaviourForShareLocation() {
+    func setUserDetailsIfNil() {
         
         if Credentials.objectId == nil {
             OTMClient.getUserDetails(completionHandler: self.handleUserInfo(error:))
@@ -185,7 +184,7 @@ class AddLocationController: MainViewController {
             OTMClient.postLocation(completionHandler: self.handlePostLocationResponse(success:error:))
             setActivityIndicator(animated: false)
         } else {
-            self.handleErrorAlert(error: error)
+            handleErrorAlert(error: error)
             setActivityIndicator(animated: false)
         }
     }
@@ -193,10 +192,10 @@ class AddLocationController: MainViewController {
     func handlePostLocationResponse(success: Bool, error: Error?) {
         
         if success {
-            self.dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
             setActivityIndicator(animated: false)
         } else {
-            self.handleErrorAlert(error: error)
+            handleErrorAlert(error: error)
             setActivityIndicator(animated: false)
         }
     }
@@ -225,9 +224,9 @@ class AddLocationController: MainViewController {
     
     override func setUiState(isInterationEnable: Bool) {
         
-        textField.isEnabled = isInterationEnable
+        textField.isEnabled =                   isInterationEnable
         mapLocalView.isUserInteractionEnabled = isInterationEnable
-        submitButton.isEnabled = isInterationEnable
+        submitButton.isEnabled =                isInterationEnable
         
     }
 }

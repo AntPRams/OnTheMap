@@ -15,7 +15,7 @@ extension UIViewController {
     //This method is used to change the icon to add a location, if the user already posted a location this method changes de icon
     func setAddLocationButtonImage(_ button: UIBarButtonItem) {
         
-        if Credentials.objectId != nil {
+        if DummyInfo.latitude != nil || DummyInfo.longitude != nil || DummyInfo.objectId != nil {
             button.image = UIImage(named: "updateLocation")
         } else {
             button.image = UIImage(named: "addPin")
