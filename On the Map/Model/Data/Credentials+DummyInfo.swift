@@ -19,14 +19,14 @@ struct Credentials {
 
 struct DummyInfo {
     
-    static var firstName:    String?  //from OTMClient.getUserDetails
-    static var lastName:     String?  //from OTMClient.getUserDetails
-    static var mediaUrl:     String?  
-    static var latitude:     Double?
-    static var longitude:    Double?
-    static var objectId =    Credentials.objectId
-    static var uniqueKey =   Credentials.accountId
-    static var mapString:    String?
+    static var firstName:  String?  //from OTMClient.getUserDetails
+    static var lastName:   String?  //from OTMClient.getUserDetails
+    static var mediaUrl:   String?
+    static var latitude:   Double?
+    static var longitude:  Double?
+    static var objectId =  Credentials.objectId
+    static var uniqueKey = Credentials.accountId
+    static var mapString:  String?
     
 }
 

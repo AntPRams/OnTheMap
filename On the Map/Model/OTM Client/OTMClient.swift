@@ -187,7 +187,7 @@ class OTMClient {
         }
     }
     
-    class func getUserDetails(completionHandler: @escaping (Error?)-> Void) {
+    class func getUserDetails(completionHandler: @escaping (UserInfo?, Error?)-> Void) {
         
         if let accountID = Credentials.accountId {
             
@@ -200,16 +200,12 @@ class OTMClient {
                 
                 if let response = response {
                     
-                    guard let firstName = response.firstName, let lastName = response.lastName else {return}
-                    
-                    DummyInfo.firstName = firstName
-                    DummyInfo.lastName = lastName
                     DispatchQueue.main.async {
-                        completionHandler(nil)
+                        completionHandler(response, nil)
                     }
                 } else {
                     DispatchQueue.main.async {
-                        completionHandler(error)
+                        completionHandler(nil, error)
                     }
                 }
             }

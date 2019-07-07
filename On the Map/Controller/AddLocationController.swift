@@ -78,7 +78,7 @@ class AddLocationController: MainViewController {
         case "Submit":
             if textField.text != "" {
                 setActivityIndicator(animated: true)
-                setUserDetailsIfNil()
+                OTMClient.getUserDetails(completionHandler: self.handleUserInfo(response:error:))
                 DummyInfo.mediaUrl = checkUrl(check: placeOnMapOrURL)
             } else {
                 showAlert(error: "You must provide a valid URL")
@@ -131,19 +131,7 @@ class AddLocationController: MainViewController {
         }
         
     }
-    
-    func setUserDetailsIfNil() {
-        
-        if Credentials.objectId == nil {
-            OTMClient.getUserDetails(completionHandler: self.handleUserInfo(error:))
-            dismiss(animated: true, completion: nil)
-        } else {
-            OTMClient.putLocation(completionHandler: self.handlePostLocationResponse(success:error:))
-            dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    
+
     func setColoredLabelText(_ label: UILabel) {
         
         let myString: NSString = "Where are you\nstudying\ntoday?"
@@ -178,11 +166,18 @@ class AddLocationController: MainViewController {
         label.attributedText = myMutableString
     }
     
-    func handleUserInfo(error: Error?){
+    
+    func handleUserInfo(response: UserInfo?, error: Error?){
         
         if error == nil {
-            OTMClient.postLocation(completionHandler: self.handlePostLocationResponse(success:error:))
-            setActivityIndicator(animated: false)
+            if Credentials.objectId == nil {
+                DummyInfo.firstName = response?.firstName
+                DummyInfo.lastName = response?.lastName
+                OTMClient.postLocation(completionHandler: self.handlePostLocationResponse(success:error:))
+                setActivityIndicator(animated: false)
+            } else {
+                OTMClient.putLocation(completionHandler: self.handlePostLocationResponse(success:error:))
+            }
         } else {
             handleErrorAlert(error: error)
             setActivityIndicator(animated: false)
