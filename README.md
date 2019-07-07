@@ -50,11 +50,10 @@ open OnTheMap.xcodeproj
 
 ## Know issues 
 
-*The purpose of these repositories are to track my progress and so that later I can apply my know how to achieve them, that is, these issues will not be fixed by me in the next couple of months*
 
 - The url check is not working (see line 99 in `AddLocationController`), the method is very poor and the user can easely add a fake URL
 
-- The button in the top right corner of the Students List/Location serves to add a location, if you already shared a location is it supposed that button changes its image to a more intuitive one. This happens only if you change views (between Students Location and List). When you add a location for the first time and dismissing the `AddLocationController` with the sumission of your location, the present controller will not update the button image automatically
+- ~~The button in the top right corner of the Students List/Location serves to add a location, if you already shared a location is it supposed that button changes its image to a more intuitive one. This happens only if you change views (between Students Location and List). When you add a location for the first time and dismissing the `AddLocationController` with the sumission of your location, the present controller will not update the button image automatically~~ -fixed 7/7/19
 
 
 ## Built With
