@@ -8,7 +8,11 @@
 
 import UIKit
 
-//The objective with this MainViewController is to encapsulate the methods, buttons and properties that are present in the other controllers
+/* ---------------------------------------------------------
+ The purpose of this controller is to encapsulate the methods,
+ actions and properties that are present in some controllers,
+ thus avoiding the repetition of the same code
+---------------------------------------------------------- */
 
 class MainViewController: UIViewController {
     
@@ -19,7 +23,12 @@ class MainViewController: UIViewController {
     var activeTextField: UITextField!
     
     let actIndicator = MyIndicator(
-        frame: CGRect(x: 0, y: 0, width: 30, height: 30), image: UIImage(named: "actIndicator")!, imageMask: UIImage(named: "actIndicatorMask")!)
+        frame: CGRect(x:      0,
+                      y:      0,
+                      width:  30,
+                      height: 30),
+        image:     UIImage(named: "actIndicator")!,
+        imageMask: UIImage(named: "actIndicatorMask")!)
     
     //MARK: View Life Cycle
     
@@ -36,7 +45,7 @@ class MainViewController: UIViewController {
         setActivityIndicator(animated: false)
     }
     
-    //MARK: Buttons presents in tableView and mapView
+    //MARK: Actions present in tableView and mapView UI
     
     @IBAction func logoutWhenButtonTapped(_ sender: Any) {
         
@@ -70,7 +79,12 @@ class MainViewController: UIViewController {
     }
     
     func setUiState(isInterationEnable: Bool) {
-        //this method was made to be overriden to block UI elements while loading
+        /*--------------------------------------------------
+         Placeholder method, implemented to be used to block
+         some UI objects while the activity indicator is on
+         screen. This method goes along with
+         setActivityIndicator(animated:)
+         --------------------------------------------------*/
     }
     
     //method to change the color of UILabel text
