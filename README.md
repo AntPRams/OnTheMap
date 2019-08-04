@@ -41,7 +41,7 @@ Use **Git Clone** to copy the project:
 
 ```
 
-git clone https://github.com/lArdevlp/OnTheMap.git
+git clone https://github.com/Ardevlp/OnTheMap.git
 cd ../OnTheMap
 open OnTheMap.xcodeproj
 
